@@ -2,6 +2,7 @@
     --mint: #ADBDB0;
     --grey: #D3CCC5;
     --lightgrey: #DBDAD8;
+    --lightpink: #f0dddc;
 }
 
 .bg-grey{
@@ -14,6 +15,10 @@
 
 .bg-lightgrey{
     background-color: var(--lightgrey);
+}
+
+.bg-lightpink{
+    background-color: var(--lightpink);
 }
 
 body{
