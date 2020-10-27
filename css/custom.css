@@ -1,0 +1,21 @@
+:root {
+    --mint: #ADBDB0;
+    --grey: #D3CCC5;
+    --lightgrey: #DBDAD8;
+}
+
+.bg-grey{
+    background-color: var(--grey);
+}
+
+.bg-mint{
+    background-color: var(--mint);
+}
+
+.bg-lightgrey{
+    background-color: var(--lightgrey);
+}
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
