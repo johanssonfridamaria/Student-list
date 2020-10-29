@@ -47,7 +47,7 @@ function listStudents() {
         li.innerHTML =
             `
             <div class="pl-3">
-            <input type="checkbox" class="form-check-input" id="attend" value="">
+            <input type="checkbox" class="form-check-input" id="attend" ${student.attending ? 'checked' : ''}>
             <label for="attend" class="form-check-label"></label>
         </div>
         ${student.name}
@@ -65,22 +65,6 @@ if (old != null) {
 }
 
 listStudents();
-
-
-
-function check() {
-
-    let attend = '';
-    if (checkbox.checked) {
-        attend = 'true';
-    }
-    else {
-        attend = 'false'
-    }
-    checkbox.value.innerHTML = attend;
-}
-
-
 
 input.addEventListener('keyup', enter);
 
@@ -102,13 +86,21 @@ form.addEventListener('submit', function (e) {
     }
 })
 
-
+studentList.addEventListener('change', (e) => {
+    let student = students.find(s => s.id.toString() === e.target.parentNode.parentNode.id);
+    if (student) {
+        student.attending = e.target.checked;
+        listStudents();
+    }
+});
 
 studentList.addEventListener('click', (e) => {
-    checkbox.onchange = check;
-    check();
+
+    const studentsCount = students.length
     students = students.filter(student => student.id != e.target.parentNode.id);
-    listStudents();
+    if (studentsCount > students.length) {
+
+        listStudents();
+    }
 
 })
-
