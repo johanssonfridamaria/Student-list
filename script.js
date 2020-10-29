@@ -21,7 +21,7 @@ const input = document.querySelector('#name');
 const btn = document.querySelector('#submit');
 const studentList = document.querySelector('#students');
 const check = document.querySelector('#attending');
-const date = new Date();
+const date= new Date();
 
 function enter(e) {
     if (e.keyCode === 13) {
@@ -55,7 +55,7 @@ const validate = function (id) {
 }
 
 const addStudent = () => {
-    
+
 }
 
 function attending(check) {
@@ -67,8 +67,8 @@ function attending(check) {
 }
 
 function listStudents() {
-    studentList.innerHTML='';
-    students.forEach(student=>{
+    studentList.innerHTML = '';
+    students.forEach(student => {
         let li = document.createElement('li');
         li.className = 'list-group-item d-flex justify-content-between';
         li.innerHTML =
@@ -78,7 +78,7 @@ function listStudents() {
             <label for="attend" class="form-check-label"></label>
         </div>
         ${student.name}
-        <button class="btn btn-danger px-3">X</button>
+        <button class="btn btn-danger px-3 delete">X</button>
         `
         studentList.appendChild(li);
     })
@@ -87,8 +87,8 @@ function listStudents() {
 
 let old = JSON.parse(localStorage.getItem("students"));
 
-if(old !=null){
-    students=old;
+if (old != null) {
+    students = old;
 }
 
 input.addEventListener('keyup', enter);
@@ -96,7 +96,7 @@ input.addEventListener('keyup', enter);
 form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (validate('#name')) {
-      
+
 
         // checkValidation('#yes', '#no');
         let student = {
@@ -106,8 +106,18 @@ form.addEventListener('submit', function (e) {
         }
         students.push(student);
         listStudents();
-        input.value='';
+        input.value = '';
     }
 })
 
 listStudents();
+
+studentList.addEventListener('click', removeItem)
+
+function removeItem(e){
+    if(e.target.classList.contains('delete')){
+        let li = e.target.parentElement;
+        studentList.removeChild(li);
+        
+    }
+}
