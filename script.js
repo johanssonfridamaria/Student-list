@@ -1,27 +1,11 @@
-let students = [
-    {
-        date: '2020-10-29',
-        name: 'Frida Johansson',
-        attending: false
-    },
-    {
-        date: '2020-10-29',
-        name: 'Klara Johansson',
-        attending: false
-    },
-    {
-        date: '2020-10-29',
-        name: 'Arvid Johansson',
-        attending: false
-    },
-]
+let students = []
 
 const form = document.querySelector('#studentForm');
 const input = document.querySelector('#name');
 const btn = document.querySelector('#submit');
 const studentList = document.querySelector('#students');
-const check = document.querySelector('#attending');
-const date= new Date();
+const date = new Date();
+const checkbox = document.querySelector('input[type=checkbox]');
 
 function enter(e) {
     if (e.keyCode === 13) {
@@ -54,27 +38,16 @@ const validate = function (id) {
     }
 }
 
-const addStudent = () => {
-
-}
-
-function attending(check) {
-    if (check.checked) {
-        return true
-    }
-    else
-        return false
-}
-
 function listStudents() {
     studentList.innerHTML = '';
     students.forEach(student => {
         let li = document.createElement('li');
+        li.id = student.id;
         li.className = 'list-group-item d-flex justify-content-between';
         li.innerHTML =
             `
             <div class="pl-3">
-            <input type="checkbox" class="form-check-input" id="attend">
+            <input type="checkbox" class="form-check-input" id="attend" value="">
             <label for="attend" class="form-check-label"></label>
         </div>
         ${student.name}
@@ -91,6 +64,24 @@ if (old != null) {
     students = old;
 }
 
+listStudents();
+
+
+
+function check() {
+
+    let attend = '';
+    if (checkbox.checked) {
+        attend = 'true';
+    }
+    else {
+        attend = 'false'
+    }
+    checkbox.value.innerHTML = attend;
+}
+
+
+
 input.addEventListener('keyup', enter);
 
 form.addEventListener('submit', function (e) {
@@ -100,6 +91,7 @@ form.addEventListener('submit', function (e) {
 
         // checkValidation('#yes', '#no');
         let student = {
+            id: Date.now(),
             date: date,
             name: e.currentTarget.name.value,
             attending: false
@@ -110,14 +102,13 @@ form.addEventListener('submit', function (e) {
     }
 })
 
-listStudents();
 
-studentList.addEventListener('click', removeItem)
 
-function removeItem(e){
-    if(e.target.classList.contains('delete')){
-        let li = e.target.parentElement;
-        studentList.removeChild(li);
-        
-    }
-}
+studentList.addEventListener('click', (e) => {
+    checkbox.onchange = check;
+    check();
+    students = students.filter(student => student.id != e.target.parentNode.id);
+    listStudents();
+
+})
+
